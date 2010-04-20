@@ -9,11 +9,13 @@ var __init__ = function(){
     hljs.tabReplace = '    ';
     hljs.initHighlightingOnLoad();
     // inject css
-    var css_path = chrome.extension.getURL("styles/native.css");
-    var css = document.createElement("link");
-    css.setAttribute("rel", "stylesheet");
-    css.setAttribute("type", "text/css");
-    css.setAttribute("href", css_path);
-    document.getElementsByTagName("head")[0].appendChild(css);
+    chrome.extension.sendRequest({ask: "favorite_style"}, function(response) {
+        var css_path = chrome.extension.getURL("styles/"+response.favorite_style+".css");
+        var css = document.createElement("link");
+        css.setAttribute("rel", "stylesheet");
+        css.setAttribute("type", "text/css");
+        css.setAttribute("href", css_path);
+        document.getElementsByTagName("head")[0].appendChild(css);
+    });
 };
 __init__();

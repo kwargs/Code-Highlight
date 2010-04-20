@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>Choose Highlight Style</title>
+<script type="text/javascript" src="styles.js"></script>
+<script type="text/javascript" src="highlight.pack.js"></script>
+<script type="text/javascript">
+
+// Saves options to localStorage.
+function save_options() {
+  var select = document.getElementById("style");
+  var style = select.children[select.selectedIndex].value;
+  localStorage["favorite_style"] = style;
+  set_style(style);
+
+  // Update status to let user know options were saved.
+  var status = document.getElementById("status");
+  status.innerHTML = "Options Saved.";
+  setTimeout(function() {
+    status.innerHTML = "";
+  }, 750);
+}
+
+function set_style(style_name){
+    var css_path = chrome.extension.getURL("styles/" + style_name + ".css");
+    var css_styles = document.getElementsByTagName("link");
+    var css_style = null;
+    for (var idx in css_styles) {
+        var cs = css_styles[idx];
+        if (cs.href && /.*styles\/.*css/.test(cs.href)){
+            css_style = cs;
+        }
+    }
+    if (!css_style){
+        var css_style = document.createElement("link");
+        css_style.setAttribute("rel", "stylesheet");
+        css_style.setAttribute("type", "text/css");
+        css_style.setAttribute("href", css_path);
+        document.getElementsByTagName("head")[0].appendChild(css_style);
+    } else {
+        css_style.setAttribute("href", css_path);
+    }
+}
+hljs.tabReplace = '    ';
+hljs.initHighlightingOnLoad();
+
+// Restores select box state to saved value from localStorage.
+function restore_options() { 
+
+  var select_el = document.getElementById("style");
+  for (var idx in styles) {
+    var s = styles[idx];
+    var option = document.createElement("option");
+    option.text = s;
+    option.setAttribute("value", s);
+    select_el.appendChild(option);
+  }
+
+  var favorite = localStorage["favorite_style"];
+  if (favorite) {
+      for (var i = 0; i < select_el.children.length; i++) {
+        var child = select_el.children[i];
+        if (child.value == favorite) {
+          child.selected = "true";
+          break;
+        }
+     }
+  } else {
+    favorite = 'native';
+  }
+  console.debug(favorite);
+  set_style(favorite);
+}
+
+</script>
+</head>
+<body onload="restore_options()">
+<span id="status"></span>
+<pre>
+<code>@requires_authorization
+def somefunc(param1, param2):
+  r'''A docstring'''
+  if param1 &gt; param2: # interesting
+    print 'Gre\'ater'
+    print ''
+  return (param2 - param1 + 1) or None
+
+class SomeClass:<br>    pass
+</code></pre>
+<select id="style">
+</select>
+
+<br>
+<button onclick="save_options()">Save</button>
+</body>
+</html>

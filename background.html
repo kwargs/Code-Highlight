@@ -1,0 +1,16 @@
+<html>
+<head>
+<script>
+  var get_favorite_style = function(){
+    return localStorage["favorite_style"] || "native";
+  }
+  chrome.extension.onRequest.addListener(
+  function(request, sender, sendResponse) {
+    if (request.ask == "favorite_style")
+      sendResponse({favorite_style: get_favorite_style() });
+    else
+      sendResponse({}); // snub them.
+  });
+</script>
+</head>
+</html>

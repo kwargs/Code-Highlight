@@ -1,10 +1,10 @@
 {
   "name": "Code Highlight",
   "description": "Highlights syntax in code examples on blogs, forums and in fact on any web pages (http://softwaremaniacs.org/soft/highlight/en/)",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "background_page": "background.html",
   "content_scripts": [{
-    "matches": ["http://*/*", "file:///*"],
+    "matches": ["http://*/*"],//, "file:///*"],
     "js": ["highlight.pack.js", "inject.js"],
     "run_at": "document_end",
     "all_frames": true

@@ -1,0 +1,166 @@
+﻿/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+
+*/
+
+pre code[class]:after {
+  content: 'highlight: ' attr(class);
+  display: block; text-align: right;
+  font-size: smaller;
+  color: #D0D0D0; background: white;
+  border-top: solid 1px;
+  padding-top: 0.5em;
+}
+
+pre code {
+  padding-left: 5px;
+  display: block;
+  background: #202020;
+}
+
+pre code,
+pre .ruby .subst,
+pre .xml .title,
+pre .lisp .title {
+  color: #D0D0D0;
+}
+
+pre .params {
+  color: #D0D0D0;
+}
+
+pre .string {
+  color: orange;
+}
+
+pre .number {
+   color: #3677A9;
+}
+
+pre .constant,
+pre .parent,
+pre .rules .value,
+pre .instancevar,
+pre .aggregate,
+pre .template_tag,
+pre .django .variable,
+pre .smalltalk .class,
+pre .addition,
+pre .flow,
+pre .stream,
+pre .bash .variable,
+pre .apache .tag,
+pre .apache .cbracket,
+pre .tex .command,
+pre .tex .special {
+  color: #800;
+}
+
+pre .preprocessor{
+  color: #CD2828;
+  font-weight: bold;
+}
+
+pre .parent,
+pre .constant,
+pre .ruby .variable{
+  color: #40FFFF;
+}
+
+pre .ruby .symbol {
+  color: #ED9D13;
+}
+
+pre .tag,
+pre .xml .title
+{
+   color: #6AB825;
+   font-weight: bold;
+}
+
+pre .attribute {
+    color: #BBB;
+    font-weight: normal;
+}
+
+pre .value {
+    color: orange;
+    font-weight: normal;
+}
+
+pre .cdata,
+pre .pi{
+    color: #CD2828;
+    font-weight: bold;
+}
+
+pre .comment,
+pre .annotation,
+pre .template_comment,
+pre .diff .header,
+pre .chunk {
+  color: #999;
+  font-style: italic;
+}
+
+pre .date,
+pre .regexp,
+pre .literal,
+pre .smalltalk .symbol,
+pre .smalltalk .char,
+pre .change {
+  color: #080;
+}
+
+pre .label,
+pre .javadoc,
+pre .ruby .string,
+pre .decorator,
+pre .filter .argument,
+pre .localvars,
+pre .array,
+pre .attr_selector,
+pre .pseudo,
+pre .doctype,
+pre .deletion,
+pre .envvar,
+pre .shebang,
+pre .apache .sqbracket,
+pre .nginx .built_in,
+pre .tex .formula {
+  color: orange;
+}
+
+pre .built_in {
+  color: #24909D;
+}
+
+pre .keyword,
+pre .id,
+pre .phpdoc,
+pre .built_in,
+pre .aggregate,
+pre .smalltalk .class,
+pre .winutils,
+pre .bash .variable,
+pre .apache .tag,
+pre .tex .command {
+  font-weight: bold;
+  color: #6AB825;
+}
+
+pre .title {
+  color: #447FCF;
+}
+
+pre .nginx .built_in {
+  font-weight: normal;
+}
+
+pre .html .css,
+pre .html .javascript,
+pre .html .vbscript,
+pre .tex .formula {
+  opacity: 0.5;
+}

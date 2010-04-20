@@ -1,0 +1,15 @@
+{
+  "name": "Code Highlight",
+  "description": "Highlights syntax in code examples on blogs, forums and in fact on any web pages (http://softwaremaniacs.org/soft/highlight/en/)",
+  "version": "0.0.2",
+  "content_scripts": [{
+    "matches": ["http://*/*", "file:///*"],
+    "js": ["highlight.pack.js", "inject.js"],
+    "css": ["native.css"],
+    "run_at": "document_end",
+    "all_frames": true
+  }],
+  "icons": {
+    "128": "icon.png"
+  }
+}

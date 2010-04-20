@@ -7,9 +7,9 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 pre code[class]:after {
   content: 'highlight: ' attr(class);
   display: block; text-align: right;
-  font-size: smaller;
-  color: #D0D0D0; background: white;
-  border-top: solid 1px;
+  font-size: small;
+  color: #D0D0D0;
+  border-top: solid 1px #999;
   padding-top: 0.5em;
 }
 
@@ -22,10 +22,7 @@ pre code {
 pre code,
 pre .ruby .subst,
 pre .xml .title,
-pre .lisp .title {
-  color: #D0D0D0;
-}
-
+pre .lisp .title,
 pre .params {
   color: #D0D0D0;
 }

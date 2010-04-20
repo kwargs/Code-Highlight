@@ -5,7 +5,6 @@
   "content_scripts": [{
     "matches": ["http://*/*", "file:///*"],
     "js": ["highlight.pack.js", "inject.js"],
-    "css": ["native.css"],
     "run_at": "document_end",
     "all_frames": true
   }],

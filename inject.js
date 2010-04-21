@@ -6,8 +6,7 @@ var __init__ = function(){
             return
         }
     }
-    hljs.tabReplace = '    ';
-    hljs.initHighlightingOnLoad();
+
     // inject css
     chrome.extension.sendRequest({ask: "favorite_style"}, function(response) {
         var css_path = chrome.extension.getURL("styles/"+response.favorite_style+".css");
@@ -17,5 +16,8 @@ var __init__ = function(){
         css.setAttribute("href", css_path);
         document.getElementsByTagName("head")[0].appendChild(css);
     });
+
+    hljs.tabReplace = '    ';
+    hljs.initHighlighting();
 };
 __init__();

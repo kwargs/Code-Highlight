@@ -1,9 +1,18 @@
+var ignore_scripts = [
+    /(.*\/)highlight(\.pack)?.js/, // highlight.js
+    /.*syntaxhighlighter.*\.js/, //SyntaxHighlighter
+    /.*sh(Core|Brush).*\.js/, //SyntaxHighlighter
+];
 var main = function(){
     var scripts = document.getElementsByTagName("script");
     for (var idx in scripts) {
         var s = scripts[idx];
-        if (s && s.src && /(.*\/)highlight(\.pack)?.js/.test(s.src)) {
-            return;
+        if (s && s.src){ 
+            for (var jdx in ignore_scripts) {
+                if (ignore_scripts[jdx].test(s.src)){
+                    return;
+                }
+            }
         }
     }
 

@@ -22,11 +22,14 @@ var main = function(){
     }
     chrome.extension.sendRequest({ask: "page_settings"}, function(response) {
         if (response.no_highlight){
+            console.debug("no hl" + response.no_highlight);
             return;
         }
         if (response.defered_highlight){
+            console.debug("defered");
             window.setTimeout(init_highlight, 1000);
         } else {
+            console.debug("normal");
             init_highlight();
         }
     });

@@ -1,7 +1,7 @@
 {
   "name": "Code Highlight",
   "description": "Highlights syntax in code examples on blogs, forums and in fact on any web pages (http://softwaremaniacs.org/soft/highlight/en/)",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "background_page": "background.html",
   "content_scripts": [{
     "matches": ["http://*/*"],

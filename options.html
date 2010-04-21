@@ -78,11 +78,26 @@ function restore_options() {
   set_style(favorite);
 }
 
+function toggle_advanced(){
+    var elem = document.getElementById("advanced_options_div");
+    console.debug("CL");
+    console.debug(elem.style.display);
+    if (elem.style.display){
+        elem.style.display = "";
+    } else {
+        elem.style.display = "none";
+    }
+}
+
 </script>
 <style>
 textarea {
     width: 300px;
-    height: 100%;
+    height: 150px;
+}
+body {
+    padding-left: 15%;
+    padding-right: 15%;
 }
 table {
     width: 100%;
@@ -91,9 +106,7 @@ table {
 </head>
 <body onload="restore_options()">
 <span id="status"></span>
-<table>
-<tr>
-<td>
+<div id="style-options">
     <pre>
     <code>@requires_authorization
     def somefunc(param1, param2):
@@ -107,17 +120,21 @@ table {
     </code></pre>
     Style: <select id="style">
     </select>
-</td>
-<td>
-    Defered pages RegExps<br/> <textarea id="defered_pages"></textarea>
-</td>
-<td>
-    Disabled pages RegExps<br/> <textarea id="disabled_pages"></textarea>
-</td>
+</div>
+<a href="#" onclick="toggle_advanced()" id="advanced_options">advanced options &gt;&gt;</a>
+<div id="advanced_options_div" style="display:none;">
+<table>
+<tr>
+    <td>Disabled pages List</td>
+    <td>Defered pages List</td>
 </tr>
-<tr><td colspan="3">
-    <button onclick="save_options()">Save</button>
-</td></tr>
+<tr>
+    <td><textarea id="disabled_pages"></textarea></td>
+    <td><textarea id="defered_pages"></textarea></td>
+</tr>
 </table>
+</div>
+<br/>
+<button onclick="save_options()">Save</button>
 </body>
 </html>

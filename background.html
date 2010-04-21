@@ -5,34 +5,25 @@
     return localStorage["favorite_style"] || "native";
   }
 
-  function regexp_list(value){
-    var regs = value.split("\n");
-    var res = [];
-    for (var idx in regs){
-        var rs = regs[idx].replace(/^\s+|\s+$/g, '');
-        if (rs){
-            res.push(new RegExp(rs));
+  function in_list(list, val){
+    for (var idx in list){
+        if (list[idx] && val.indexOf(list[idx])>=0){
+            return true;
         }
     }
-    return res;
+    return false;
   }
 
   function is_defered_page(url){
-    var defered = regexp_list(localStorage["defered_pages"]);
-    for (var idx in defered) {
-        if (defered[idx].test(url)){
-            return true;
-        }
+    if (in_list(localStorage["defered_pages"].split("\n"), url)){
+        return true;
     }
     return /[\w\d-]+\.ya\.ru(?!\/(post|repl))/.test(url);
   }
 
   function is_disabled_page(url){
-    var disabled = regexp_list(localStorage["disabled_pages"]);
-    for (var idx in disabled){
-        if (disabled[idx].test(url)){
-            return true;
-        }
+    if (in_list(localStorage["disabled_pages"].split("\n"), url)){
+        return true;
     }
     return false;
   }

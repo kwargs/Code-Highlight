@@ -73,7 +73,7 @@ function restore_options() {
     favorite = 'native';
   }
   for (var idx in {"defered_pages": null, "disabled_pages": null}){
-      document.getElementById(idx).value = localStorage[idx];
+      document.getElementById(idx).value = localStorage[idx] || "";
   }
   set_style(favorite);
 }

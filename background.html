@@ -15,14 +15,14 @@
   }
 
   function is_defered_page(url){
-    if (in_list(localStorage["defered_pages"].split("\n"), url)){
+    if (in_list((localStorage["defered_pages"] || "").split("\n"), url)){
         return true;
     }
     return /[\w\d-]+\.ya\.ru(?!\/(post|repl))/.test(url);
   }
 
   function is_disabled_page(url){
-    if (in_list(localStorage["disabled_pages"].split("\n"), url)){
+    if (in_list((localStorage["disabled_pages"] || "").split("\n"), url)){
         return true;
     }
     return false;

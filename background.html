@@ -1,15 +1,27 @@
 <html>
 <head>
 <script>
-  var get_favorite_style = function(){
+  function get_favorite_style(){
     return localStorage["favorite_style"] || "native";
   }
+
+  function is_defered_page(url){
+    return /[\w\d-]+\.ya\.ru(?!\/(post|repl))/.test(url);
+  }
+
+  function is_disabled_page(url){
+    return false;
+  }
+
   chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
-    if (request.ask == "favorite_style")
-      sendResponse({favorite_style: get_favorite_style() });
-    else
-      sendResponse({}); // snub them.
+    switch(request.ask){
+        case "favorite_style": sendResponse({favorite_style: get_favorite_style()});
+
+        case "page_settings": sendResponse({no_highlight: is_disabled_page(sender.tab.url), defered_highlight: is_defered_page(sender.tab.url)});
+
+        default: sendResponse({});
+    }
   });
 </script>
 </head>

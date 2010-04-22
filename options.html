@@ -25,14 +25,13 @@ function save_options() {
   }, 750);
 }
 
-function set_style(style_name){
-    var css_path = chrome.extension.getURL("styles/" + style_name + ".css");
-    var css_styles = document.getElementsByTagName("link");
+function set_style(file_name){
+    var css_path = chrome.extension.getURL("styles/" + file_name + ".css");
+    var styles = document.getElementsByTagName("link");
     var css_style = null;
-    for (var idx in css_styles) {
-        var cs = css_styles[idx];
-        if (cs.href && /.*styles\/.*css/.test(cs.href)){
-            css_style = cs;
+    for (var idx in styles) {
+        if (styles[idx].href && /.*styles\/.*css/.test(styles[idx].href)){
+            css_style = styles[idx];
         }
     }
     if (!css_style){
@@ -40,7 +39,7 @@ function set_style(style_name){
         css_style.setAttribute("rel", "stylesheet");
         css_style.setAttribute("type", "text/css");
         css_style.setAttribute("href", css_path);
-        document.getElementsByTagName("head")[0].appendChild(css_style);
+        document.head.appendChild(css_style);
     } else {
         css_style.setAttribute("href", css_path);
     }
@@ -114,8 +113,8 @@ table {
         print ''
       return (param2 - param1 + 1) or None
 
-    class SomeClass:<br>    pass
-    </code></pre>
+    class SomeClass:
+        pass</code></pre>
     Style: <select id="style">
     </select>
 </div>

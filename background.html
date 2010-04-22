@@ -30,14 +30,16 @@
 
   chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
-    switch(request.ask){
-        case "favorite_style": sendResponse({favorite_style: get_favorite_style()});
-
-        case "page_settings": sendResponse({no_highlight: is_disabled_page(sender.tab.url), defered_highlight: is_defered_page(sender.tab.url)});
-
-        default: sendResponse({});
+    if (request.ask == "page_settings"){
+        return sendResponse({
+            no_highlight: is_disabled_page(sender.tab.url),
+            defered_highlight: is_defered_page(sender.tab.url),
+            favorite_style: get_favorite_style()
+        });
     }
+    return sendResponse({});
   });
 </script>
 </head>
+<!-- vim: set syntax=javascript: -->
 </html>

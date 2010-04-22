@@ -51,7 +51,8 @@ pre .apache .tag,
 pre .apache .cbracket,
 pre .tex .command,
 pre .tex .special {
-  color: #800;
+  color: #CD2828;
+  font-weight: bold;
 }
 
 pre .preprocessor{

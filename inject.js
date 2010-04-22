@@ -15,7 +15,9 @@ var main = function(){
         }
     }
 
-    init_highlight = function(favorite_style){
+
+
+    init_highlight = function(favorite_style, live_page){
         var css_path = chrome.extension.getURL("styles/"+favorite_style+".css");
         var css = document.createElement("link");
         css.setAttribute("rel", "stylesheet");
@@ -24,18 +26,35 @@ var main = function(){
         document.head.appendChild(css);
 
         hljs.tabReplace = '    ';
+        hljs.onHighlight = function(code, language){
+            console.debug("code= " + code + " lang = " + language);
+        }
         hljs.initHighlighting();
+
+        // XXX: copy-paste from highlight.js
+        var do_highlighting = function(root){
+            var pres = root.getElementsByTagName('pre');
+            for (var i = 0; i < pres.length; i++) {
+              var code = hljs.findCode(pres[i]);
+              if (code)
+                hljs.highlightBlock(code, hljs.tabReplace);
+            }
+        }
+        //do_highlighting(document);
+        if (live_page){
+            document.body.addEventListener("DOMNodeInserted", function(event){ 
+                console.debug(event.type + " " + event.target + " " + event.target.tagName + "'");
+                do_highlighting(event.target);
+            });
+        }
     }
 
     chrome.extension.sendRequest({ask: "page_settings"}, function(response) {
         if (response.no_highlight){
             return;
         }
-        if (response.defered_highlight){
-            window.setTimeout(function(){init_highlight(response.favorite_style);}, 1000);
-        } else {
-            init_highlight(response.favorite_style);
-        }
+        console.debug(response);
+        init_highlight(response.favorite_style, response.defered_highlight);
     });
 };
 main();

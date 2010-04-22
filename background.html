@@ -18,7 +18,7 @@
     if (in_list((localStorage["defered_pages"] || "").split("\n"), url)){
         return true;
     }
-    return /[\w\d-]+\.ya\.ru(?!\/(post|repl))/.test(url);
+    return /[\w\d-]+\.ya\.ru/.test(url);
   }
 
   function is_disabled_page(url){

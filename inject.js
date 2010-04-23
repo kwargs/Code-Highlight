@@ -27,7 +27,7 @@ var main = function(){
 
         hljs.tabReplace = '    ';
         hljs.onHighlight = function(code, language){
-            console.debug("code= " + code + " lang = " + language);
+            //console.debug("code= " + code + " lang = " + language);
         }
         hljs.initHighlighting();
 
@@ -43,7 +43,7 @@ var main = function(){
         //do_highlighting(document);
         if (live_page){
             document.body.addEventListener("DOMNodeInserted", function(event){ 
-                console.debug(event.type + " " + event.target + " " + event.target.tagName + "'");
+                //console.debug(event.type + " " + event.target + " " + event.target.tagName + "'");
                 do_highlighting(event.target);
             });
         }
@@ -53,7 +53,6 @@ var main = function(){
         if (response.no_highlight){
             return;
         }
-        console.debug(response);
         init_highlight(response.favorite_style, response.defered_highlight);
     });
 };

@@ -2,6 +2,7 @@
 <head>
 <title>Choose Highlight Style</title>
 <script type="text/javascript" src="styles.js"></script>
+<script type="text/javascript" src="inject.js"></script>
 <script type="text/javascript" src="highlight.pack.js"></script>
 <script type="text/javascript">
 
@@ -44,12 +45,10 @@ function set_style(file_name){
         css_style.setAttribute("href", css_path);
     }
 }
-hljs.tabReplace = '    ';
-hljs.initHighlightingOnLoad();
 
 // Restores select box state to saved value from localStorage.
 function restore_options() { 
-
+  main();
   var select_el = document.getElementById("style");
   for (var idx in styles) {
     var s = styles[idx];

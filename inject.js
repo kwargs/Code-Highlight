@@ -2,6 +2,8 @@ var ignore_scripts = [
     /(.*\/)highlight(\.pack)?.js/, // highlight.js
     /.*(syntaxhighlighter|sh(Core|Brush)).*\.js/]; //SyntaxHighlighter 
 
+var highlight_css = null;
+
 var main = function(){
     var scripts = document.getElementsByTagName("script");
     for (var idx in scripts) {
@@ -15,20 +17,28 @@ var main = function(){
         }
     }
 
-
+    var inject_style = function(favorite_style){
+        if (highlight_css) return;
+        highlight_css = document.createElement("link");
+        highlight_css.setAttribute("rel", "stylesheet");
+        highlight_css.setAttribute("type", "text/css");
+        highlight_css.setAttribute("href", chrome.extension.getURL("styles/"+favorite_style+".css"));
+        document.head.appendChild(highlight_css);
+    }
+    var is_already_highlighted = function(block){
+        for (var i = 0; i < block.childNodes.length; i++){
+            var child = block.childNodes[i];
+            if (child.nodeType == 3)
+                continue;
+            if (child.nodeName == 'BR' || child.nodeName == 'WBR')
+                continue;
+            return true;
+        }
+        return false;
+    }
 
     init_highlight = function(favorite_style, live_page){
-        var css_path = chrome.extension.getURL("styles/"+favorite_style+".css");
-        var css = document.createElement("link");
-        css.setAttribute("rel", "stylesheet");
-        css.setAttribute("type", "text/css");
-        css.setAttribute("href", css_path);
-        document.head.appendChild(css);
-
         hljs.tabReplace = '    ';
-        hljs.onHighlight = function(code, language){
-            //console.debug("code= " + code + " lang = " + language);
-        }
         hljs.initHighlighting();
 
         // XXX: copy-paste from highlight.js
@@ -36,14 +46,15 @@ var main = function(){
             var pres = root.getElementsByTagName('pre');
             for (var i = 0; i < pres.length; i++) {
               var code = hljs.findCode(pres[i]);
-              if (code)
+              if (code && !is_already_highlighted(code)){
                 hljs.highlightBlock(code, hljs.tabReplace);
+                init_highlight(favorite_style);
+              }
             }
         }
-        //do_highlighting(document);
+        do_highlighting(document);
         if (live_page){
             document.body.addEventListener("DOMNodeInserted", function(event){ 
-                //console.debug(event.type + " " + event.target + " " + event.target.tagName + "'");
                 do_highlighting(event.target);
             });
         }

@@ -16,7 +16,7 @@ pre code[class]:after {
 pre code {
   padding-left: 5px;
   display: block;
-  background: #202020;
+  background-color: #202020 !important;
 }
 
 pre code,
@@ -160,5 +160,5 @@ pre .html .css,
 pre .html .javascript,
 pre .html .vbscript,
 pre .tex .formula {
-  opacity: 0.5;
+  opacity: 0.7;
 }

@@ -43,12 +43,13 @@ var main = function(){
 
         // XXX: copy-paste from highlight.js
         var do_highlighting = function(root){
+            if (!root.getElementsByTagName) return;
             var pres = root.getElementsByTagName('pre');
             for (var i = 0; i < pres.length; i++) {
               var code = hljs.findCode(pres[i]);
               if (code && !is_already_highlighted(code)){
                 hljs.highlightBlock(code, hljs.tabReplace);
-                init_highlight(favorite_style);
+                inject_style(favorite_style);
               }
             }
         }

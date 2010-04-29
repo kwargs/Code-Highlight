@@ -39,9 +39,8 @@ var main = function(){
 
     init_highlight = function(favorite_style, live_page){
         hljs.tabReplace = '    ';
-        hljs.initHighlighting();
+        hljs.compileLanguages();
 
-        // XXX: copy-paste from highlight.js
         var do_highlighting = function(root){
             if (!root.getElementsByTagName) return;
             var pres = root.getElementsByTagName('pre');

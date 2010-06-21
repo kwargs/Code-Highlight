@@ -36,19 +36,36 @@ var main = function(){
         }
         return false;
     }
+    // copy-paste from highlight.js
+    var findCode = function(pre) {
+    for (var i = 0; i < pre.childNodes.length; i++) {
+        node = pre.childNodes[i];
+        if (node.nodeName == 'CODE')
+            return node;
+        if (!(node.nodeType == 3 && node.nodeValue.match(/\s+/)))
+            return null;
+        }
+    }
 
     init_highlight = function(favorite_style, live_page){
         hljs.tabReplace = '    ';
-        hljs.compileLanguages();
+        //hljs.compileLanguages();
 
         var do_highlighting = function(root){
             if (!root.getElementsByTagName) return;
             var pres = root.getElementsByTagName('pre');
             for (var i = 0; i < pres.length; i++) {
-              var code = hljs.findCode(pres[i]);
+              var code = findCode(pres[i]);
               if (code && !is_already_highlighted(code)){
-                hljs.highlightBlock(code, hljs.tabReplace);
+                var result = hljs.highlightBlock(code, hljs.tabReplace);
                 inject_style(favorite_style);
+                /*if(result){
+                    var controls = document.createElement("div");
+                    controls.className = "controls";
+                    controls.innerHTML = "foo bar baz";
+                    result['new'].appendChild(controls);
+                    inject_style(favorite_style);
+                }*/
               }
             }
         }

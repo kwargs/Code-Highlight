@@ -4,7 +4,7 @@
   "version": "0.1.3",
   "background_page": "background.html",
   "content_scripts": [{
-    "matches": ["http://*/*", "file:///*"],
+    "matches": ["http://*/*"],
     "js": ["highlight.pack.js", "inject.js"],
     "run_at": "document_idle",
     "all_frames": false 

@@ -1,7 +1,7 @@
+PYTHON=python
 
 PDIR = pack
 scripts = \
-	manifest.json\
 	highlight.pack.js\
 	inject.js\
 	styles.js\
@@ -10,12 +10,29 @@ scripts = \
 	test.html\
 	icon.png
 
+
+
 pack:
 	install -d $(PDIR)
+	fgrep -v 'file://' manifest.json >>$(PDIR)/mainfest.json
 	install -m644 $(scripts) $(PDIR)
 	install -d $(PDIR)/styles
 	install -m644 styles/*.css $(PDIR)/styles
 	zip -r $(PDIR).zip $(PDIR)
 	rm -rf $(PDIR)
 
-.PHONY: pack
+highlight.js:
+	bzr branch http://bazaar.launchpad.net/~isagalaev/+junk/highlight highlight.js
+
+build:
+	$(PYTHON) highlight.js/tools/pack.py
+	$(PYTHON) highlight.js/tools/build.py
+	ln -sf highlight.js/src/highlight.pack.js
+
+styles:
+	rm -rf styles
+	mkdir styles
+	ln -s `pwd`/highlight.js/src/styles/*.css styles/
+	ln -s `pwd`/native.css styles/native.css
+
+.PHONY: pack styles

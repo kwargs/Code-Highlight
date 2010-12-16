@@ -1,2 +1,5 @@
 *.swp
 pack.zip
+pack/
+highlight.js/
+styles/

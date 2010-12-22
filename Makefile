@@ -30,9 +30,10 @@ build:
 	ln -sf highlight.js/src/highlight.pack.js
 
 styles:
-	rm -rf styles
-	mkdir styles
-	ln -s `pwd`/highlight.js/src/styles/*.css styles/
-	ln -s `pwd`/native.css styles/native.css
+	rm -rf styles && mkdir styles
+	for style in `ls highlight.js/src/styles/*.css`; do\
+		cat $$style | python add_prefix.py > styles/`basename $$style`;\
+	done;
+	cat native.css | python add_prefix.py > styles/native.css
 
 .PHONY: pack styles

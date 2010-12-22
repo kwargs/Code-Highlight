@@ -36,36 +36,55 @@ var main = function(){
         }
         return false;
     }
-    // copy-paste from highlight.js
-    var findCode = function(pre) {
-    for (var i = 0; i < pre.childNodes.length; i++) {
-        node = pre.childNodes[i];
-        if (node.nodeName == 'CODE')
-            return node;
-        if (!(node.nodeType == 3 && node.nodeValue.match(/\s+/)))
-            return null;
+
+    var findCodeStrict = function(pre) {
+        var code = null;
+        for (var i=0; i < pre.childNodes.length; ++i){
+            var node = pre.childNodes[i];
+
+            if (node.nodeName == 'CODE'){
+                if (code) {
+                    return null;
+                }
+                code = node;
+            } else if (!(node.nodeType == 3 && node.nodeValue.search(/^\s+$/) == 0)){
+                return null;
+            }
+        }
+        return code;
+    }
+
+    add_style_prefix_to_spans = function(element, to_elements, prefix){
+        if (element.nodeType != 1) return;
+        var spans = element.getElementsByTagName(to_elements);
+        for (var i=0; i < spans.length; ++i){
+            var s = spans[i];
+            var newClass = "";
+            for (var j=0; j<s.classList.length; ++j){
+                if (newClass) newClass += " ";
+                newClass += prefix + s.classList[j];
+            }
+            s.className = newClass;
         }
     }
 
     init_highlight = function(favorite_style, live_page){
         hljs.tabReplace = '    ';
-        //hljs.compileLanguages();
 
         var do_highlighting = function(root){
             if (!root.getElementsByTagName) return;
             var pres = root.getElementsByTagName('pre');
             for (var i = 0; i < pres.length; i++) {
-              var code = findCode(pres[i]);
+              var pre = pres[i];
+              var code = findCodeStrict(pre);
               if (code && !is_already_highlighted(code)){
                 var result = hljs.highlightBlock(code, hljs.tabReplace);
+                if (pre.className)
+                    pre.className + " ch-inject";
+                else
+                    pre.className = "ch-inject";
+                add_style_prefix_to_spans(pre, 'span', "ch-inject-");
                 inject_style(favorite_style);
-                /*if(result){
-                    var controls = document.createElement("div");
-                    controls.className = "controls";
-                    controls.innerHTML = "foo bar baz";
-                    result['new'].appendChild(controls);
-                    inject_style(favorite_style);
-                }*/
               }
             }
         }

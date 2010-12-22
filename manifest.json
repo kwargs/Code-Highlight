@@ -6,7 +6,7 @@
   "content_scripts": [{
     "matches": [
         "file:///*",
-        "http://*/*" 
+        "http://*/*"
     ],
     "js": ["highlight.pack.js", "inject.js"],
     "run_at": "document_idle",

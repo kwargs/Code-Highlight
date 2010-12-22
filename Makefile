@@ -14,7 +14,7 @@ scripts = \
 
 pack:
 	install -d $(PDIR)
-	fgrep -v 'file://' manifest.json >>$(PDIR)/mainfest.json
+	fgrep -v 'file://' manifest.json >$(PDIR)/manifest.json
 	install -m644 $(scripts) $(PDIR)
 	install -d $(PDIR)/styles
 	install -m644 styles/*.css $(PDIR)/styles
